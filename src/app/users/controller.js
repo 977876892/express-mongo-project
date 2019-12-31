@@ -3,12 +3,12 @@ const logger = require("../../utilities/logger");
 const repository = require("./repository");
 
 exports.register = async (req, res) => {
-    // const { user } = req;
-    // if (user) {
-    //     logger.error("User already exists");
-    //     res.preconditionFailed("existing_user");
-    //     return;
-    // }
+    const { user } = req;
+    if (user) {
+        logger.error("User already exists");
+        res.preconditionFailed("existing_user");
+        return;
+    }
 
 
     try {
