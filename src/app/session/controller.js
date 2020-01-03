@@ -17,7 +17,7 @@ exports.login = async ( req, res ) => {
             return;
         }
 
-        const token = jwt.sign( user.toObject(), config.secret, { expiresIn: 1440 } );
+        const token = jwt.sign( user.toObject(), config.secret, { expiresIn: 604800 } );
         logger.info( "User loged in with success. Login token", token );
         res.json( {
             success: true,
