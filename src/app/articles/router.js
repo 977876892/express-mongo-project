@@ -25,7 +25,7 @@ const router = express.Router( );
 *           }
 *      }
 */
-router.post( "/", controller.create );
+router.post( "/create", controller.create );
 
 /**
 *    @apiGroup Article
@@ -33,7 +33,7 @@ router.post( "/", controller.create );
 *    @apiParam {String} title  The article's title can be changed.
 *    @apiParam {String} body  The article's body can be changed.
 */
-router.put( "/:id", controller.update );
+router.put( "/update/:id", controller.update );
 
 /**
 *    @apiGroup Article
