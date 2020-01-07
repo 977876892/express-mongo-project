@@ -1,7 +1,8 @@
 const mongoose = require( "mongoose" );
 const md5 = require( "md5" );
-
+const autoIncrement = require('mongoose-auto-increment');
 const Schema = mongoose.Schema;
+autoIncrement.initialize(mongoose.connection);
 
 const userSchema = new Schema( {
     id: { type: String, required: true },
@@ -21,5 +22,12 @@ userSchema.methods.setPass = function( password ) {
 userSchema.methods.checkPass = function( password ) {
     return this.password === md5( password );
 };
+
+userSchema.plugin(autoIncrement.plugin, {
+    model: 'User',
+    field: 'id',
+    startAt: 1,
+    incrementBy: 1
+});
 
 module.exports = mongoose.model( "User", userSchema );
