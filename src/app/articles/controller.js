@@ -3,7 +3,6 @@ const repository = require("./repository");
 
 exports.create = async (req, res) => {
     try {
-        console.log('---', req)
         const user = req;
         const article = await repository.createArticle(user, req.body);
         res.success(utilities.extractObject(
@@ -18,10 +17,12 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const body = req.body;
-        const details = await repository.findDetails(req.params.id);
         const findaArt = await repository.updateArtcle(req.params.id, body);
-        res.success(findaArt);
-
+        if (findaArt.n > 0) {
+            res.status(200).json({ status: true, id: req.params.id, message: "update successfully" });
+        } else {
+            res.status(400).json({ status: false, id: req.params.id, message: "Invalid ID" });
+        }
     } catch (err) {
         res.send(err);
     }
