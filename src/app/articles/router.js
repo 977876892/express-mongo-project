@@ -39,13 +39,13 @@ router.put( "/update/:id", controller.update );
 *    @apiGroup Article
 *    @api {delete} /:id Deleting an existing article.
 */
-router.delete( "/:id", controller.delete );
+router.delete( "/remove/:id", controller.delete );
 
 /**
 *    @apiGroup Article
 *    @api {get} / Displaying the list with existing articles.
 */
-router.get( "/", controller.list );
+router.get( "/list", controller.list );
 
 /**
 *    @apiGroup Article

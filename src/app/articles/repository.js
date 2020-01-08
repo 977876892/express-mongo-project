@@ -4,7 +4,7 @@ const Article = mongoose.model("Article");
 const User = mongoose.model("User");
 
 const createArticle = async (user, data) => {
-    const { id } = user.user._id;
+    const { id } = user.user.id;
     const article = new Article(data);
     article.authorId = user.user.id;
     // article.authorId = await User.findOne({ data });
@@ -13,22 +13,26 @@ const createArticle = async (user, data) => {
     return query;
 };
 
-const findArticles = () => Article.find();
+// const findArticles = async () => await Article.find({ authorId: { $nin: [null,''] } }).sort({title:1}).skip((num-1)*10).limit(10);
+const findArticles = async () => await Article.find({ authorId: { $nin: [null,''] } }).sort({title:1});
 
 const findDetails = async (id) => {
-    const query = await Article.findOne({ _id: id });
+    const query = await Article.findOne({ articleId: id,  authorId: { $nin: [null,''] }});
     return query;
 };
 
 // const updateArtcle = (param,data)=> Article.findOneAndUpdate({_id:param},data)
 const updateArtcle = async (param, data) => {
-    const query = await Article.update({ _id: param }, data);
+    const query = await Article.update({ articleId: +param }, data);
     return query;
 };
+
+const removeArtcle = (param) => Article.remove({ articleId: param });
 
 module.exports = {
     createArticle,
     findArticles,
     findDetails,
-    updateArtcle
+    updateArtcle,
+    removeArtcle
 };
