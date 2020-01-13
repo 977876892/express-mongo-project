@@ -1,6 +1,6 @@
 const express = require( "express" );
 const bodyParser = require( "body-parser" );
-
+var cookieParser = require('cookie-parser')
 const config = require( "./config" );
 const customResponses = require( "./middlewares/customResponses" );
 const logger = require( "./utilities/logger" );
@@ -13,6 +13,7 @@ app.set( "env", ENV );
 
 app.use( bodyParser.json( ) );
 app.use( customResponses );
+app.use(cookieParser())
 
 require( "./config/mongoose" )( app );
 require( "./app" )( app );
