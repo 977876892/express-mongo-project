@@ -53,4 +53,6 @@ router.get( "/list", controller.list );
 */
 router.get( "/:id", controller.detail );
 
+router.delete( "/deletemany/:id", controller.deletemany );
+
 module.exports = router;

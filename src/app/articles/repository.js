@@ -14,10 +14,10 @@ const createArticle = async (user, data) => {
 };
 
 // const findArticles = async () => await Article.find({ authorId: { $nin: [null,''] } }).sort({title:1}).skip((num-1)*10).limit(10);
-const findArticles = async () => await Article.find({ authorId: { $nin: [null,''] } }).sort({title:1});
+const findArticles = async () => await Article.find({ authorId: { $nin: [null, ''] } }).sort({ title: 1 });
 
 const findDetails = async (id) => {
-    const query = await Article.findOne({ articleId: id,  authorId: { $nin: [null,''] }});
+    const query = await Article.findOne({ articleId: id, authorId: { $nin: [null, ''] } });
     return query;
 };
 
@@ -29,10 +29,16 @@ const updateArtcle = async (param, data) => {
 
 const removeArtcle = (param) => Article.remove({ articleId: param });
 
+const deletemany = async (id) => {
+    const query = await Article.deleteMany({ authorId: id });
+    return query;
+}
+
 module.exports = {
     createArticle,
     findArticles,
     findDetails,
     updateArtcle,
-    removeArtcle
+    removeArtcle,
+    deletemany
 };

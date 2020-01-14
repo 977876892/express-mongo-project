@@ -61,3 +61,14 @@ exports.detail = async (req, res) => {
     }
 };
 
+exports.deletemany = async (req, res) => {
+    try {
+        const delemany = await repository.deletemany(req.params.id);
+        if (delemany.n > 0) {
+            res.status(200).json({ status: true, id: req.params.id, message: "all deleted successfully" });
+        } else {
+            res.status(400).json({ status: false, id: req.params.id, message: "Invalid IDs" });
+        }
+    } catch (err) { res.send(err) }
+};
+
