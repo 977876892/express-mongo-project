@@ -1,5 +1,7 @@
 const utilities = require("../../utilities");
 const repository = require("./repository");
+var fs = require("fs");
+var path = require('path');
 
 exports.create = async (req, res) => {
     try {
@@ -44,6 +46,42 @@ exports.delete = async (req, res) => {
 
 exports.list = async (req, res) => {
     try {
+        const inpu = path.join(__dirname, 'input.txt');
+
+
+        // Asynchronous - Opening File
+        console.log("Going to open file!");
+        fs.open(inpu, 'r+', function (err, fd) {
+            if (err) {
+                return console.error(err);
+            }
+            // console.log("File opened successfully!");
+        });
+
+
+        //write file
+        fs.writeFile(inpu, 'Simply Easy Learning!', function (err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
+
+        // Asynchronous read
+        fs.readFile(inpu, function (err, data) {
+            if (err) {
+                return console.error(err);
+            }
+            // console.log("Asynchronous read: " + data.toString());
+        });
+
+        // console.log('__filename',__filename)
+        // console.log('__dirname',__dirname)
+        console.log('req.cookies',req.cookies)
+
+
+
+
+
         const articles = await repository.findArticles();
         res.success(articles);
     } catch (err) {
