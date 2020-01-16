@@ -2,11 +2,12 @@ const utilities = require("../../utilities");
 const repository = require("./repository");
 var fs = require("fs");
 var path = require('path');
+var validator = require('./validator');
 
 exports.create = async (req, res) => {
     try {
         const user = req;
-        console.log(req)
+        await validator.create(req.body);
         const article = await repository.createArticle(user, req.body);
         res.success(utilities.extractObject(
             article,
