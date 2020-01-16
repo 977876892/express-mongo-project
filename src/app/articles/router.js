@@ -55,4 +55,8 @@ router.get( "/:id", controller.detail );
 
 router.delete( "/deletemany/:id", controller.deletemany );
 
+router.put('/findandupdate/:id', controller.findOneAndUpdate);
+router.put('/updatemany/:id', controller.updatemany);
+
+
 module.exports = router;

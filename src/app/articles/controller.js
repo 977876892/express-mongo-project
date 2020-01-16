@@ -76,7 +76,7 @@ exports.list = async (req, res) => {
 
         // console.log('__filename',__filename)
         // console.log('__dirname',__dirname)
-        console.log('req.cookies',req.cookies)
+        console.log('req.cookies', req.cookies)
 
 
 
@@ -109,4 +109,26 @@ exports.deletemany = async (req, res) => {
         }
     } catch (err) { res.send(err) }
 };
+
+exports.findOneAndUpdate = async (req, res) => {
+    try {
+        const findandupdate = await repository.findOneAndUpdate(req.params.id, req.body);
+        res.send(findandupdate)
+    } catch (err) {
+
+    }
+}
+
+exports.updatemany = async (req, res) => {
+    try {
+        const updatemany = await repository.updatemany(req.params.id, req.body);
+        if (updatemany.n > 0) {
+            res.status(200).json({ status: true, id: req.params.id, message: "update successfully" });
+        } else {
+            res.status(400).json({ status: false, id: req.params.id, message: "Invalid ID" });
+        }
+    } catch (err) {
+
+    }
+}
 

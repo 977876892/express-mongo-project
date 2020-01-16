@@ -31,6 +31,16 @@ const removeArtcle = (param) => Article.remove({ articleId: param });
 
 const deletemany = async (id) => {
     const query = await Article.deleteMany({ authorId: id });
+
+}
+
+const findOneAndUpdate = async (id, body) => {
+    const query = await Article.findOneAndUpdate({ authorId: id }, body, { new: true });
+    return query;
+}
+
+const updatemany = async (id, body) => {
+    const query = await Article.updateMany({ authorId: id }, body);
     return query;
 }
 
@@ -40,5 +50,7 @@ module.exports = {
     findDetails,
     updateArtcle,
     removeArtcle,
-    deletemany
+    deletemany,
+    findOneAndUpdate,
+    updatemany
 };
