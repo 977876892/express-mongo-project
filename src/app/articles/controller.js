@@ -1,4 +1,5 @@
 const utilities = require("../../utilities");
+const Wreck = require('@hapi/wreck'); // only for custom api
 const repository = require("./repository");
 var fs = require("fs");
 var path = require('path');
@@ -130,6 +131,15 @@ exports.updatemany = async (req, res) => {
         }
     } catch (err) {
 
+    }
+}
+
+exports.customapi = async (req, res) => {
+    try {
+        const { payload } = await Wreck.get('https://indian-cities-api-nocbegfhqg.now.sh/cities?District='+ req.params.district);
+        res.json({data:JSON.parse(payload.toString())});
+    } catch (err) { 
+        console.log(err)
     }
 }
 

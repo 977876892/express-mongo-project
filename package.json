@@ -22,6 +22,7 @@
   "license": "ISC",
   "homepage": "https://github.com/FortechRomania/node-starter#readme",
   "dependencies": {
+    "@hapi/wreck": "^17.0.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.3",

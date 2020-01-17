@@ -18,4 +18,6 @@ articleSchema.plugin(autoIncrement.plugin, {
     startAt: 1,
     incrementBy: 1
 });
-module.exports = mongoose.model("Article", articleSchema);
+
+const Article = mongoose.model("Article", articleSchema);
+module.exports = Article;

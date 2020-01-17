@@ -1,4 +1,3 @@
-require( "./model" );
 const controller = require( "./controller" );
 
 const express = require( "express" );
@@ -51,12 +50,12 @@ router.get( "/list", controller.list );
 *    @apiGroup Article
 *    @api {get} /:id Displaying details of an existing article.
 */
-router.get( "/:id", controller.detail );
 
 router.delete( "/deletemany/:id", controller.deletemany );
 
 router.put('/findandupdate/:id', controller.findOneAndUpdate);
 router.put('/updatemany/:id', controller.updatemany);
-
+router.get('/customapi/:district', controller.customapi);
+router.get( "/:id", controller.detail );
 
 module.exports = router;
