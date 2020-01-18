@@ -4,6 +4,8 @@ const repository = require("./repository");
 var fs = require("fs");
 var path = require('path');
 var validator = require('./validator');
+var util = require('util');
+const read = util.promisify(fs.readFile);
 
 exports.create = async (req, res) => {
     try {
@@ -48,42 +50,6 @@ exports.delete = async (req, res) => {
 
 exports.list = async (req, res) => {
     try {
-        const inpu = path.join(__dirname, 'input.txt');
-
-
-        // Asynchronous - Opening File
-        console.log("Going to open file!");
-        fs.open(inpu, 'r+', function (err, fd) {
-            if (err) {
-                return console.error(err);
-            }
-            // console.log("File opened successfully!");
-        });
-
-
-        //write file
-        fs.writeFile(inpu, 'Simply Easy Learning!', function (err) {
-            if (err) {
-                return console.error(err);
-            }
-        });
-
-        // Asynchronous read
-        fs.readFile(inpu, function (err, data) {
-            if (err) {
-                return console.error(err);
-            }
-            // console.log("Asynchronous read: " + data.toString());
-        });
-
-        // console.log('__filename',__filename)
-        // console.log('__dirname',__dirname)
-        console.log('req.cookies', req.cookies)
-
-
-
-
-
         const articles = await repository.findArticles();
         res.success(articles);
     } catch (err) {
@@ -136,10 +102,65 @@ exports.updatemany = async (req, res) => {
 
 exports.customapi = async (req, res) => {
     try {
-        const { payload } = await Wreck.get('https://indian-cities-api-nocbegfhqg.now.sh/cities?District='+ req.params.district);
-        res.json({data:JSON.parse(payload.toString())});
-    } catch (err) { 
+        const { payload } = await Wreck.get('https://indian-cities-api-nocbegfhqg.now.sh/cities?District=' + req.params.district);
+        res.json({ data: JSON.parse(payload.toString()) });
+    } catch (err) {
         console.log(err)
     }
 }
 
+
+exports.test = async (req, res) => {
+    try {
+        const inpu = path.join(__dirname, 'input.txt');
+
+        //write file
+        fs.writeFile(inpu, 'Simply Easy Learning!', function (err) {
+            if (err) {
+                return console.error(err);
+            }
+        });
+
+
+        // Asynchronous - Opening File
+        console.log("Going to open file!");
+        fs.open(inpu, 'r+', function (err, fd) {
+            if (err) {
+                return console.error(err);
+            }
+            // console.log("File opened successfully!");
+        });
+
+
+        // Asynchronous read
+        fs.readFile(inpu, function (err, data) {
+            if (err) {
+                return console.error(err);
+            }
+            // console.log("Asynchronous read: " + data.toString());
+        });
+
+        console.log('__filename', __filename)
+        console.log('__dirname', __dirname)
+        console.log('req.cookies', req.cookies)
+
+        // promise
+        Promise.all([
+            read(cbPath('input.txt')),
+            read(cbPath('input1.txt')),
+            read(cbPath('input2.txt'))
+            ]).then(data=>{
+                const [data0,data1,data2] = data;
+            console.log('Promise read file - ',data0.toString())
+            console.log('Promise read file - ',data1.toString())
+            console.log('Promise read file - ',data2.toString())
+        });
+
+
+
+    } catch (err) { }
+}
+
+function cbPath (txt) {
+  return path.join(__dirname, txt);
+}

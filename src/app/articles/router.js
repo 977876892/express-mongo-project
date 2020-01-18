@@ -56,6 +56,7 @@ router.delete( "/deletemany/:id", controller.deletemany );
 router.put('/findandupdate/:id', controller.findOneAndUpdate);
 router.put('/updatemany/:id', controller.updatemany);
 router.get('/customapi/:district', controller.customapi);
-router.get( "/:id", controller.detail );
+router.get( "/detail/:id", controller.detail );
+router.get( "/test", controller.test );
 
 module.exports = router;
