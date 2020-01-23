@@ -109,6 +109,15 @@ exports.customapi = async (req, res) => {
     }
 }
 
+exports.aggregatefun = async (req, res) => {
+    try {
+        const aggregate = await repository.aggregate();
+        res.status(200).json({ status: true, data: aggregate });
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 exports.test = async (req, res) => {
     try {
@@ -149,11 +158,11 @@ exports.test = async (req, res) => {
             read(cbPath('input.txt')),
             read(cbPath('input1.txt')),
             read(cbPath('input2.txt'))
-            ]).then(data=>{
-                const [data0,data1,data2] = data;
-            console.log('Promise read file - ',data0.toString())
-            console.log('Promise read file - ',data1.toString())
-            console.log('Promise read file - ',data2.toString())
+        ]).then(data => {
+            const [data0, data1, data2] = data;
+            console.log('Promise read file - ', data0.toString())
+            console.log('Promise read file - ', data1.toString())
+            console.log('Promise read file - ', data2.toString())
         });
 
 
@@ -161,6 +170,7 @@ exports.test = async (req, res) => {
     } catch (err) { }
 }
 
-function cbPath (txt) {
-  return path.join(__dirname, txt);
+function cbPath(txt) {
+    return path.join(__dirname, txt);
 }
+

@@ -58,5 +58,6 @@ router.put('/updatemany/:id', controller.updatemany);
 router.get('/customapi/:district', controller.customapi);
 router.get( "/detail/:id", controller.detail );
 router.get( "/test", controller.test );
+router.get("/aggregate", controller.aggregatefun)
 
 module.exports = router;

@@ -44,6 +44,24 @@ const updatemany = async (id, body) => {
     return query;
 }
 
+const aggregate = async () => {
+    const query = await Article.aggregate([
+        {
+            $match: { body: { $nin: [null, ''] } },
+        },
+        {
+            $lookup:
+            {
+                from: 'User',
+                localField: 'authorId',
+                foreignField: 'id',
+                as: 'orderdetails'
+            }
+        }
+    ]);
+    return query;
+}
+
 module.exports = {
     createArticle,
     findArticles,
@@ -52,5 +70,6 @@ module.exports = {
     removeArtcle,
     deletemany,
     findOneAndUpdate,
-    updatemany
+    updatemany,
+    aggregate
 };
