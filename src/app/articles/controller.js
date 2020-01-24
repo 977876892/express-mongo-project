@@ -118,6 +118,14 @@ exports.aggregatefun = async (req, res) => {
     }
 }
 
+exports.updatetitle = async (req, res) => {
+    try {
+        const titleVal = await validator.updatetitle(req.body);
+        const update = await repository.updateTitle(req);
+        res.send(update);
+    } catch (err) { }
+}
+
 
 exports.test = async (req, res) => {
     try {

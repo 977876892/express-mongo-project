@@ -62,6 +62,12 @@ const aggregate = async () => {
     return query;
 }
 
+const updateTitle = async (req) => {
+    const query = await Article.update({ articleId: req.params.id }, { $set: req.body }, { upsert: true });
+    // If you use {upsert:true} update time it will find search id if there it will update other wise it will create new recored
+    return query;
+}
+
 module.exports = {
     createArticle,
     findArticles,
@@ -71,5 +77,6 @@ module.exports = {
     deletemany,
     findOneAndUpdate,
     updatemany,
-    aggregate
+    aggregate,
+    updateTitle
 };
