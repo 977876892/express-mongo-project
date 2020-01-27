@@ -7,6 +7,6 @@ var blogsRouter = require('./blogs/router');
 module.exports = ( app ) => {
     app.use( "/session", sessionRouter );
     app.use( "/users", usersRouter );
-    app.use( "/articles",validateToken, articlesRouter );
+    app.use( "/articles", articlesRouter );
     app.use( "/blogs", blogsRouter );
 };
