@@ -4,7 +4,9 @@ var cookieParser = require('cookie-parser')
 const config = require( "./config" );
 const customResponses = require( "./middlewares/customResponses" );
 const logger = require( "./utilities/logger" );
-
+// swagger
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require('swagger-ui-express');
 const app = express( );
 const port = process.env.PORT || config.port;
 const ENV = process.env.NODE_ENV || config.env;
@@ -22,6 +24,26 @@ app.use(function(req, res, next) {
 });
 require( "./config/mongoose" )( app );
 require( "./app" )( app );
+
+// Extended: https://swagger.io/specification/#infoObject
+// https://itnext.io/setting-up-swagger-in-a-node-js-application-d3c4d7aa56d4
+// https://github.com/brian-childress/node-autogenerate-swagger-documentation/blob/master/app.js
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Customer API",
+      description: "Customer API Information",
+      contact: {
+        name: "Amazing Developer"
+      },
+      servers: ["http://localhost:1234"]
+    }
+  },
+  // ['.routes/*.js']
+  apis: ['./app']
+};
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 app.use( ( req, res ) => {
