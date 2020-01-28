@@ -4,7 +4,7 @@
   "description": "node starter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha 'src/test/**/*.js' || true",
     "start": "nodemon --watch src src/index.js",
     "doc": "apidoc -i src/ -o doc",
     "lint": "eslint src",
@@ -24,6 +24,7 @@
   "dependencies": {
     "@hapi/wreck": "^17.0.0",
     "body-parser": "^1.18.3",
+    "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
@@ -42,6 +43,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.1.2",
-    "eslint-config-fortech": "^2.0.2"
+    "chai": "^4.2.0",
+    "eslint-config-fortech": "^2.0.2",
+    "mocha": "^7.0.1"
   }
 }
