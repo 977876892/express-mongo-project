@@ -4,7 +4,7 @@
   "description": "node starter",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'src/test/**/*.js' || true",
+    "test": "node ./node_modules/mocha/bin/mocha 'src/test/*.js' -t 70000 -R spec --exit",
     "start": "nodemon --watch src src/index.js",
     "doc": "apidoc -i src/ -o doc",
     "lint": "eslint src",

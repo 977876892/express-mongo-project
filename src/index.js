@@ -66,3 +66,4 @@ app.use( ( err, req, res, next ) => { // eslint-disable-line no-unused-vars
 app.listen( port, ( ) => {
     logger.info( `Listening on port ${ port }` );
 } );
+module.exports = app;
