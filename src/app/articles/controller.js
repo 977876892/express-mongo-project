@@ -11,7 +11,9 @@ exports.create = async (req, res) => {
     try {
         const user = req;
         await validator.create(req.body);
+        console.log('---', req.body)
         const article = await repository.createArticle(user, req.body);
+        console.log('article', article)
         res.success(utilities.extractObject(
             article,
             ["articleId", "title", "body"],
@@ -125,6 +127,46 @@ exports.updatetitle = async (req, res) => {
         res.send(update);
     } catch (err) { }
 }
+
+exports.dummyJson = async (req, res) => {
+    try {
+        fs.readFile(path.join(__dirname, 'data.json'), 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            res.send(JSON.parse(data));
+        });
+    } catch (err) { }
+};
+
+exports.projection = async (req, res) => {
+    // db.COLLECTION_NAME.find({},{KEY:1})
+    try {
+        const proje = await repository.getprojectiondata();
+        res.status(200).json({ status: true, data: proje });
+    } catch (err) {
+
+    }
+};
+
+exports.pagination = async (req, res) => {
+    try {
+        const pagi = await repository.paginationRes(req);
+        res.status(200).json({ status: true, data: pagi });
+    } catch (err) {
+
+    }
+};
+
+exports.search = async (req, res) => {
+    try {
+        const ser = await repository.searchtext(req);
+        res.status(200).json({ status: true, data: ser });
+    } catch (err) {
+
+    }
+};
 
 
 exports.test = async (req, res) => {

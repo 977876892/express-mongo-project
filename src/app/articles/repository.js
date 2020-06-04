@@ -4,17 +4,14 @@ const Article = require('./model');
 const User = mongoose.model("User");
 
 const createArticle = async (user, data) => {
-    const { id } = user.user.id;
     const article = new Article(data);
-    article.authorId = user.user.id;
-    // article.authorId = await User.findOne({ data });
-    // console.log(article)
-    const query = await article.save();
+    article.authorId = await User.findOne({ data });
+    const query = await article.save(data);
     return query;
 };
 
 // const findArticles = async () => await Article.find({ authorId: { $nin: [null,''] } }).sort({title:1}).skip((num-1)*10).limit(10);
-const findArticles = async () => await Article.find({ authorId: { $nin: [null, ''] } }).sort({ title: 1 });
+const findArticles = async () => await Article.find({ articleId: { $nin: [null, ''] } }).sort({ title: 1 });
 
 const findDetails = async (id) => {
     const query = await Article.findOne({ articleId: id, authorId: { $nin: [null, ''] } });
@@ -68,7 +65,26 @@ const updateTitle = async (req) => {
     return query;
 }
 
+const getprojectiondata = async (req) => {
+    // const query = await Article.find({title: 'Tec' }, 'title');   // if you need filter that column
+    const query = await Article.find({}, 'title'); // if you need all list data
+    return query;
+}
+
+const paginationRes = async (req) => {
+    var limit = 5;
+    var skip = (parseInt(req.params.page) - 1) * limit;
+    const query = await Article.find({ tags: { $gt: [] } }, 'title body tags').limit(limit).skip(skip); //if you want to find not equal to empty array	
+    // const query = await Article.find({ tags: { $in: ["mongodb", "database", "NoSQL"] } }, 'title body tags').limit(limit).skip(skip); // if you want to find Values in an array	
+    return query;
+}
+
+const searchtext = async (req) => {
+    const query = await Article.find({ $text: { $search: req.params.search } }, 'title body');
+    return query;
+}
 module.exports = {
+    getprojectiondata,
     createArticle,
     findArticles,
     findDetails,
@@ -78,5 +94,7 @@ module.exports = {
     findOneAndUpdate,
     updatemany,
     aggregate,
-    updateTitle
+    updateTitle,
+    paginationRes,
+    searchtext
 };

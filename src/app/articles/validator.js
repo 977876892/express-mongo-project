@@ -3,7 +3,8 @@ const Joi = require('joi');
 module.exports.create = async (req) => {
     let checkval = Joi.object().keys({
         "title": Joi.string().required(),
-        "body": Joi.any()
+        "body": Joi.any(),
+        "tags": Joi.array().items(Joi.string().required(),Joi.number().required())
     });
     return await Joi.validate(req, checkval, { abortEarly: false });  // err === null -> valid;
 }
