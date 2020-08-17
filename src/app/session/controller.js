@@ -27,3 +27,18 @@ exports.login = async ( req, res ) => {
         res.send( err );
     }
 };
+
+exports.apipasslogintoken = async ( req,res ) => {
+    try {
+        const user = await repository.findUser( req );
+        if ( !user || !user.checkPass( req.password ) ) {
+            res.json( { success: false, message: "Authentication failed." } );
+            return;
+        }
+
+        const token = jwt.sign( user.toObject(), config.secret, { expiresIn: 604800 } );
+        return token
+    } catch ( err ) {
+        res.send( err );
+    }
+};
