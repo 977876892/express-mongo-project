@@ -54,4 +54,6 @@ router.put( "/edit", validateToken, controller.edit );
 */
 router.delete( "/delete", validateToken, controller.delete );
 
+router.post( "/login", controller.login );
+
 module.exports = router;

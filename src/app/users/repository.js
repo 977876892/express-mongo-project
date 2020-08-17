@@ -8,14 +8,9 @@ const saveUser = (data) => {
     return user.save();
 };
 
-const editUser = (user, data) => {
-    const { name, sex, age } = data;
-    const currentUser = user;
-
-    currentUser.name = name;
-    currentUser.sex = sex;
-    currentUser.age = age;
-    return user.save();
+const editUser =async (user, data) => {
+    const query = await User.update({ id: user.id }, data);
+    return query;
 };
 
 const deleteUser = (user) => user.remove();
