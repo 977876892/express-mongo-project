@@ -8,7 +8,7 @@ const userSchema = new Schema( {
     id: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
-    sex: { type: String, required: false, enum: [ "male", "female",null ] },
+    gender: { type: String, required: false, enum: [ "male", "female",null ] },
     firstname: { type: String, required: true },
     lastname: { type: String, required: false },
     email: { type: String, required: true },
@@ -16,6 +16,7 @@ const userSchema = new Schema( {
     address: { type: String, required: false },
     phone: { type: String, required: false },
     pin: { type: String, required: false },
+    itemType:{ type: String, required: true }
 }, {
     timestamps: true,
 } );
