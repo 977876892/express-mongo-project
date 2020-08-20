@@ -3,10 +3,12 @@ const articlesRouter = require( "./articles/router" );
 const sessionRouter = require( "./session/router" );
 const validateToken = require( "../middlewares/validateToken" );
 var blogsRouter = require('./blogs/router');
+var itemsRouter = require('./items/router');
 
 module.exports = ( app ) => {
     app.use( "/session", sessionRouter );
     app.use( "/users", usersRouter );
     app.use( "/articles", articlesRouter );
     app.use( "/blogs", blogsRouter );
+    app.use( "/items", itemsRouter );
 };
