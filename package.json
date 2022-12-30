@@ -46,6 +46,6 @@
     "babel-eslint": "^6.1.2",
     "chai": "^4.2.0",
     "eslint-config-fortech": "^2.0.2",
-    "mocha": "^7.0.1"
+    "mocha": "^10.2.0"
   }
 }
